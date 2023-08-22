@@ -1,0 +1,1 @@
+yarn run bundler --network localhost --mnemonic /home/ahmed/Desktop/upwork/infinitism/4337infinitismBundler/bundler/mnemonicfile.txt --unsafe
