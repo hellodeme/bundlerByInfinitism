@@ -60,28 +60,28 @@ export class ValidationManager {
   async _callSimulateValidation(
     userOp: UserOperation
   ): Promise<ValidationResult> {
-    console.log("userOp", userOp);
-    let addressRes = "0x0000000000000000000000000000000000000000";
-    try {
-      await this.entryPoint.callStatic.getSenderAddress(userOp.initCode);
-    } catch (error) {
-      if (error instanceof Error) {
-        // Parse the error message to extract the address
-        const errorMessage = error.message;
-        const match = errorMessage.match(
-          /errorArgs=\[\"(0x[0-9a-fA-F]{40})\"\]/
-        );
+    // let addressRes = "0x0000000000000000000000000000000000000000";
+    // try {
+    //   await this.entryPoint.callStatic.getSenderAddress(userOp.initCode);
+    // } catch (error) {
+    //   if (error instanceof Error) {
+    //     // Parse the error message to extract the address
+    //     const errorMessage = error.message;
+    //     const match = errorMessage.match(
+    //       /errorArgs=\[\"(0x[0-9a-fA-F]{40})\"\]/
+    //     );
 
-        if (match && match[1]) {
-          addressRes = match[1];
-          console.log("Extracted address:", addressRes);
-        } else {
-          console.log("Failed to extract address from error message.");
-        }
-      }
-    }
-    console.log("/////////////////////////////////////////////////");
-    console.log("addressRes", addressRes);
+    //     if (match && match[1]) {
+    //       addressRes = match[1];
+    //       console.log("Extracted address:", addressRes);
+    //     } else {
+    //       console.log("Failed to extract address from error message.");
+    //     }
+    //   }
+    // }
+    // console.log("/////////////////////////////////////////////////");
+    // console.log("addressRes", addressRes);
+    console.log("8478484848484 userOp", userOp);
     const errorResult = await this.entryPoint.callStatic // commented cause this validation is assuming that a wallet is already created
       .simulateValidation(userOp, { gasLimit: 10e6 })
       .catch((e) => e);
@@ -108,7 +108,7 @@ export class ValidationManager {
         errorResult.errorArgs?.reason ?? errorResult.toString();
 
       if (paymaster == null) {
-        // console.log("ValidationManager 94949494949494949494");
+        console.log("94949494949494949494", msg);
         throw new RpcError(
           `account validation failed: ${msg}`,
           ValidationErrors.SimulateValidation
@@ -302,9 +302,8 @@ export class ValidationManager {
       }
     } else {
       // NOTE: this mode doesn't do any opcode checking and no stake checking!
-      console.log("3053053053053053303505350355035035");
+
       res = await this._callSimulateValidation(userOp);
-      console.log("3073073073073073037037037073037030", res);
     }
 
     // console.log("308308308308 await this._callSimulateValidation(userOp)", res);

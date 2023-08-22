@@ -45,7 +45,7 @@ const DEFAULT_INFURA_ID = "d442d82a1ab34327a7126a578428dfc4";
 export function getNetworkProvider(url: string): JsonRpcProvider {
   if (url.match(/^[\w-]+$/) != null) {
     const infuraId = process.env.INFURA_ID1 ?? DEFAULT_INFURA_ID;
-    url = `https://rpc.ankr.com/eth_goerli`;
+    url = `https://ethereum-goerli.publicnode.com`;
   }
   console.log("url=", url);
   return new JsonRpcProvider(url);
